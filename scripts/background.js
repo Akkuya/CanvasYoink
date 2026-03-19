@@ -27,7 +27,6 @@ chrome.webRequest.onBeforeRequest.addListener(logURL, {
 });
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "FRAME_READY") {
-    // store it
     chrome.storage.session.set({
       frameId: sender.frameId,
       tabId: sender.tab.id,
@@ -38,6 +37,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.storage.session.get(["frameId", "tabId"], (result) => {
       sendResponse(result);
     });
-    return true; // 👈 critical, tells Chrome to keep the channel open for async response
+    return true;
   }
 });

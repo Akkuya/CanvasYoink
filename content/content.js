@@ -1,8 +1,5 @@
-// content.js
-console.log("content script loaded!");
-
+console.log("CanvasYoink content.js injected!");
 chrome.runtime.sendMessage({ type: "FRAME_READY", href: location.href });
-// // At the top of content.js, just read whatever is already in storage
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === "URL_CAPTURED") {
     showDownloadButton(msg.url);
@@ -22,8 +19,7 @@ function waitForElement(selector, callback) {
 
   observer.observe(document.body, { childList: true, subtree: true });
 }
-let colors = ["red", "green"];
-let i = 0;
+
 function showDownloadButton(url) {
   console.log("Running");
   waitForElement(".stat_data", (target) => {
@@ -57,7 +53,5 @@ function showDownloadButton(url) {
     target.style.display = "flex";
     target.style.alignItems = "center";
     target.style.gap = "8px";
-    console.log("BTN Injected!");
-    i += 1;
   });
 }
